@@ -1,2 +1,2 @@
 # cudas
-Softball Team Website
+Championship Softball Team Website
