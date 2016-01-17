@@ -1,10 +1,10 @@
 <div class="roster container">
 	<div class="row">
 		<div class="col-lg-4" ng-repeat="player in players">
-			<img class="img-circle" src="http://all4desktop.com/data_images/original/4242435-face.jpg" alt="Generic placeholder image" width="140" height="140">
+			<img class="img-circle" ng-src="{{player.image_url}}" alt="Generic placeholder image" width="140" height="140">
 			<h2>{{player.name}}</h2>
-			<p>Nicknames</p>
-			<p>Positions</p>
+			<p>{{player.nickname}}</p>
+			<p>{{player.positions}}</p>
 		</div><!-- /.col-lg-4 -->
 	</div><!-- /.row -->
 </div>
