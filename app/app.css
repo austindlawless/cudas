@@ -17,10 +17,10 @@ html {
 }
 
 body {
-	margin-top: 50px;
+	margin-top: 70px;
 	margin-bottom: 50px;
   padding-bottom: 40px;
-  color: #5a5a5a;
+  color: white;
 	background-color: transparent;
 }
 
@@ -101,4 +101,11 @@ body {
 	background-color: transparent;
 	color: white;
 	text-align: center;
+}
+
+/* ROSTER CSS
+-------------------------------------------------- */
+
+.roster {
+	margin-top: 50px;
 }
