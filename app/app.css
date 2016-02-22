@@ -26,7 +26,7 @@ img.bg {
 }
 
 /* iPhone portrait */
-@media screen and (max-width: 476px) and (min-height: 476px) { /* Specific to this particular image */
+@media screen and (max-width: 476px) and (min-height: 476px) {
   img.bg {
     /* Set rules to fill background */
 		min-height: 476px;
@@ -42,9 +42,54 @@ img.bg {
   }
 }
 
+/* iPhone landscape */
+@media screen and (min-width: 476px) and (max-width: 740px) and (max-height: 740px) {
+  img.bg {
+    /* Set rules to fill background */
+		min-height: 100%;
+		min-width: 476px;
+
+		/* Set up proportionate scaling */
+		width: 100%;
+		height: auto;
+
+		/* Set up positioning */
+		top: -20%;
+		left: 0;
+  }
+}
+
+/* iPad portrait */
+@media screen and (min-width: 741px) and (max-width: 800px) and (min-height: 800px) {
+  img.bg {
+    /* Set rules to fill background */
+		min-height: 800px;
+		min-width: 100%;
+
+		/* Set up proportionate scaling */
+		width: auto;
+		height: 100%;
+
+		/* Set up positioning */
+		top: 0;
+		left: -15%;
+  }
+}
+
 /* big screen */
 @media screen and (min-width: 800px) { /* Specific to this particular image */
   img.bg {
+		 /* Set rules to fill background */
+		min-height: 100%;
+		min-width: 800px;
+
+		/* Set up proportionate scaling */
+		width: 100%;
+		height: auto;
+
+		/* Set up positioning */
+		top: -35%;
+		left: 0;
   }
 }
 
