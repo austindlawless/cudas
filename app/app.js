@@ -4,8 +4,10 @@
 angular.module('myApp', [
   'ngRoute',
   'myApp.home',
-  'myApp.roster'
+  'myApp.roster',
+	'myApp.schedule'
 ]).
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/home'});
-}]);
+
+	config(['$routeProvider', function ($routeProvider) {
+		$routeProvider.otherwise({redirectTo: '/home'});
+	}]);
