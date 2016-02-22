@@ -22,7 +22,7 @@ img.bg {
 	z-index:-1;
 	
 	/* darken */
-	opacity: 0.5;
+	opacity: 0.4;
 }
 
 /* iPhone portrait */
@@ -165,8 +165,6 @@ img.bg {
 .roster {
 	margin-top: 50px;
 	padding-top: 20px;
-	background-color: rgb(50,50,50);
-	background-color: rgba(0,0,0,0.6);
 	width: auto;
 }
 
