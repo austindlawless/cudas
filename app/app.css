@@ -169,3 +169,8 @@ img.bg {
 	background-color: rgba(0,0,0,0.6);
 	width: auto;
 }
+
+.roster-entry img {
+	width: 180px;
+	height: 180px;
+}
