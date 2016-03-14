@@ -50,20 +50,20 @@
 								<li><a href="http://tmsdln.com/8wf7">Standings</a></li>
               </ul>
 							<ul class="nav navbar-nav navbar-right">
-								<li class="dropdown" ng-controller="loginCtrl">
+								<li class="dropdown" ng-controller="MainCtrl">
 									<a class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
 									<ul id="login-dp" class="dropdown-menu">
 										<li>
 											 <div class="row">
 													<div class="col-md-12">
-														 <form class="form" ng-submit="login()" accept-charset="UTF-8" id="login-nav">
+														 <form class="form" ng-submit="login(user)" accept-charset="UTF-8" id="login-nav">
 																<div class="form-group">
 																	 <label class="sr-only" for="exampleInputEmail2">Username</label>
-																	 <input type="username" class="form-control" id="exampleInputEmail2" placeholder="username" ng-model="username" required>
+																	 <input type="username" class="form-control" id="exampleInputEmail2" placeholder="username" ng-model="user.username" required>
 																</div>
 																<div class="form-group">
 																	<label class="sr-only" for="exampleInputPassword2">Password</label>
-																	<input type="password" class="form-control" id="exampleInputPassword2" placeholder="password" ng-model="password" required>
+																	<input type="password" class="form-control" id="exampleInputPassword2" placeholder="password" ng-model="user.password" required>
 																</div>
 																<div class="form-group">
 																	 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
@@ -95,10 +95,10 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/angular-route/angular-route.js"></script>
+		<script src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
 		<script src="app.js"></script>
 		<script src="home/home.js"></script>
 		<script src="roster/roster.js"></script>
 		<script src="schedule/schedule.js"></script>
-		<script src="controllers/loginCtrl.js"></script>
   </body>
 </html>
