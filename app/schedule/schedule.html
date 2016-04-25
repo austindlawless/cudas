@@ -1,5 +1,5 @@
 <div class="schedule container">
-		<div class="row col-lg-12 game" ng-repeat="game in games | orderBy:['date','time']" ng-class="game.class">
+		<div class="row col-lg-12 game" ng-repeat="game in games | orderBy:['date','time']" ng-class="game.status">
 			<h2 class="text-center">{{game.away}} {{game.awayScore}} @ {{game.home}} {{game.homeScore}}</h2>
 			<p class="text-center">{{game.date}} - {{game.time}} - Field {{game.field}}</p>
 		</div><!-- /.col-lg-12 -->
