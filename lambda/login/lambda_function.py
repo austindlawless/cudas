@@ -6,10 +6,12 @@ import jwt
 
 print('Loading function')
 
+
 def lambda_handler(event, context):
+	print(json.dumps(event))
 	username = event['username']
 	password = event['password']
-	
+
 	if (username and password) :
 		print('username=' + username)
 		print('password=' + password)

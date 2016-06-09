@@ -2,10 +2,10 @@
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
-  'ngRoute',
+	'ngRoute',
 	'angular-storage',
-  'myApp.home',
-  'myApp.roster',
+	'myApp.home',
+	'myApp.roster',
 	'myApp.schedule'
 ])
 	
@@ -16,9 +16,9 @@ angular.module('myApp', [
 	}])
 
 	.service('APIInterceptor', function ($rootScope, UserService) {
-    var service = this;
+        var service = this;
 
-    service.request = function (config) {
+        service.request = function (config) {
 			var currentUser = UserService.getCurrentUser(),
 				access_token = currentUser ? currentUser.access_token : null;
 
@@ -26,32 +26,33 @@ angular.module('myApp', [
 				config.headers.authorization = access_token;
 			}
 			return config;
-    };
+        };
 
-    service.responseError = function (response) {
+        service.responseError = function (response) {
 			if (response.status === 401) {
 				$rootScope.$broadcast('unauthorized');
 			}
 			return response;
-    };
-	})
+        };
+    })
 
 	.service('UserService', function (store) {
-    var service = this,
-      currentUser = null;
+		console.log('entered UserService');
+        var service = this,
+        currentUser = null;
 
-    service.setCurrentUser = function (user) {
-			currentUser = user;
-			store.set('user', user);
-			return currentUser;
-    };
+		service.setCurrentUser = function (user) {
+            currentUser = user;
+            store.set('user', user);
+            return currentUser;
+        };
 
-    service.getCurrentUser = function () {
-			if (!currentUser) {
-				currentUser = store.get('user');
-			}
-			return currentUser;
-    };
+        service.getCurrentUser = function () {
+            if (!currentUser) {
+                currentUser = store.get('user');
+            }
+            return currentUser;
+        };
 	})
 	
 	.controller('MainCtrl', ['$rootScope', '$scope', '$http', 'UserService', function ($rootScope, $scope, $http, UserService) {
@@ -61,23 +62,26 @@ angular.module('myApp', [
 		
 		console.log("currentUser=" + JSON.stringify(UserService.getCurrentUser()));
 
-    function logout() {
-			main.currentUser = UserService.setCurrentUser(null);
-    }
+		function logout() {
+				main.currentUser = UserService.setCurrentUser(null);
+		}
 
-    $rootScope.$on('authorized', function () {
-			console.log("broadcast - authorized");
-			main.currentUser = UserService.getCurrentUser();
-    });
+		$rootScope.$on('authorized', function () {
+				console.log("broadcast - authorized");
+				main.currentUser = UserService.getCurrentUser();
+				console.log('currentUser =' + main.currentUser);
+		});
 
-    $rootScope.$on('unauthorized', function () {
-			console.log("broadcast - unauthorized");
-			main.currentUser = UserService.setCurrentUser(null);
-    });
+		$rootScope.$on('unauthorized', function () {
+				console.log("broadcast - unauthorized");
+				main.currentUser = UserService.setCurrentUser(null);
+		});
 
-    main.logout = logout;
-    main.currentUser = UserService.getCurrentUser();
-		
+		main.logout = logout;
+		main.currentUser = UserService.getCurrentUser();
+
+		$scope.main = main;
+			
 		$scope.login = function (user) {
 			console.log("username=" + user.username);
 			console.log("password=" + user.password);
@@ -89,9 +93,15 @@ angular.module('myApp', [
 				headers: {}
 			}).then(function (response) {
 				console.log("response.data=" + JSON.stringify(response.data));
-				user.auth_token = response.data.auth_token;
-				UserService.setCurrentUser(user);
-				$rootScope.$broadcast('authorized');
+				if (response.data) {
+					user = {};
+					user.auth_token = response.data.auth_token;
+					UserService.setCurrentUser(user);
+					$rootScope.$broadcast('authorized');
+				} else {
+					UserService.setCurrentUser(null);
+					$rootScope.$broadcast('unauthorized');
+				}
 			});
 			
 		};
