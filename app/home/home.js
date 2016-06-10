@@ -9,7 +9,7 @@ angular.module('myApp.home', ['ngRoute'])
 		});
 	}])
 
-	.controller('HomeCtrl', ['$scope', '$http', '$log', '$uibModal', function ($scope, $http, $log, $uibModal) {
+	.controller('HomeCtrl', ['$scope', '$http', '$log', '$uibModal', '$rootScope', function ($scope, $http, $log, $uibModal, $rootScope) {
 		$log.debug('registered HomeCtrl');
 
 		function updateMessages() {
@@ -21,6 +21,10 @@ angular.module('myApp.home', ['ngRoute'])
 
 		updateMessages();
 
+		$rootScope.$on('messagePosted', function() {
+			updateMessages();
+		});
+
 		$scope.open = function () {
 			$log.debug("Entered modal open function");
 
@@ -31,15 +35,15 @@ angular.module('myApp.home', ['ngRoute'])
 				size: "md"
 			});
 
-			modalInstance.result.then(function (selectedItem) {
-				$scope.selected = selectedItem;
+			modalInstance.result.then(function () {
+				$log.info('Message post sent at : ' + new Date());
 			}, function () {
 				$log.info('Modal dismissed at: ' + new Date());
 			});
 		};
 	}])
 
-	.controller('ModalInstanceCtrl', ['$scope', '$uibModalInstance', '$log', '$http', function ($scope, $uibModalInstance, $log, $http) {
+	.controller('ModalInstanceCtrl', ['$scope', '$uibModalInstance', '$log', '$http', '$rootScope', function ($scope, $uibModalInstance, $log, $http, $rootScope) {
 
 		$scope.post = function (message) {
 			$log.debug("Posting message=" + JSON.stringify(message));
@@ -51,6 +55,7 @@ angular.module('myApp.home', ['ngRoute'])
 				headers: {}
 			}).then(function (response) {
 				$log.debug("response=" + JSON.stringify(response));
+				$rootScope.$broadcast('messagePosted');
 			});
 
 			$uibModalInstance.close();
