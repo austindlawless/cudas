@@ -52,7 +52,7 @@
 							<ul class="nav navbar-nav navbar-right" ng-controller="MainCtrl">
 								<li class="dropdown">
 									<a ng-show="main.currentUser == null" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-									<ul id="login-dp" class="dropdown-menu" ng-hide="main.currentUser">
+									<ul class="dropdown-menu login-dp" ng-hide="main.currentUser">
 										<li>
 											 <div class="row">
 													<div class="col-md-12">
@@ -75,7 +75,18 @@
 									</ul>
 								</li>
                 <li>
-                  <button ng-show="main.currentUser" class="btn btn-default navbar-btn" ng-click="main.logout()">Logout</button>
+                  <a ng-show="main.currentUser" class="dropdown-toggle" data-toggle="dropdown"><b>{{main.currentUser.username}}</b> <span class="caret"></span></a>
+                  <ul class="dropdown-menu login-dp" ng-hide="main.currentUser == null">
+                    <li>
+                       <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <button type="submit" class="btn btn-primary btn-block" ng-click="main.logout()">Logout</button>
+                            </div>
+                          </div>
+                       </div>
+                    </li>
+                  </ul>
                 </li>
 							</ul>
             </div>
