@@ -1,3 +1,18 @@
+<div>
+    <script type="text/ng-template" id="messageModalContent">
+        <form class="form" ng-submit="post(message)" accept-charset="UTF-8">
+			<label class="sr-only" for="message">Message</label>
+			<input type="message" class="form-control" id="message" placeholder="What would you like to post?" ng-model="message.content" required>
+		</form>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="post(message)">Post</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <button type="button" class="btn btn-primary pull-right" ng-click="open()">Post</button>
+</div>
+
 <div class="jumbotron">
 	<div class="row">
 		<div class="col-xs-12" ng-repeat="message in messages">
