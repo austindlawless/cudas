@@ -11,6 +11,7 @@
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
     "bootstrap": "~3.3.6",
-    "a0-angular-storage": "^0.0.13"
+    "a0-angular-storage": "^0.0.13",
+    "angular-ui-router": "^0.3.1"
   }
 }

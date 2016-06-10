@@ -49,10 +49,10 @@
 								<li><a href="#/schedule">Schedule</a></li>
 								<li><a href="http://tmsdln.com/8wf7">Standings</a></li>
               </ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li class="dropdown" ng-controller="MainCtrl">
-									<a ng-if="main.currentUser == null" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-									<ul id="login-dp" class="dropdown-menu">
+							<ul class="nav navbar-nav navbar-right" ng-controller="MainCtrl">
+								<li class="dropdown">
+									<a ng-show="main.currentUser == null" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+									<ul id="login-dp" class="dropdown-menu" ng-hide="main.currentUser">
 										<li>
 											 <div class="row">
 													<div class="col-md-12">
@@ -74,8 +74,8 @@
 										</li>
 									</ul>
 								</li>
-                <li ng-controller="MainCtrl">
-                  <button ng-if="main.currentUser" class="btn btn-default navbar-btn" ng-click="main.logout()">Logout</button>
+                <li>
+                  <button ng-show="main.currentUser" class="btn btn-default navbar-btn" ng-click="main.logout()">Logout</button>
                 </li>
 							</ul>
             </div>
@@ -99,6 +99,7 @@
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/angular-route/angular-route.js"></script>
 		<script src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 		<script src="app.js"></script>
 		<script src="home/home.js"></script>
 		<script src="roster/roster.js"></script>

@@ -4,12 +4,20 @@
 angular.module('myApp', [
 	'ngRoute',
 	'angular-storage',
+	'ui.router',
 	'myApp.home',
 	'myApp.roster',
 	'myApp.schedule'
 ])
 	
-	.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+	.config(['$stateProvider','$routeProvider', '$httpProvider', function ($stateProvider, $routeProvider, $httpProvider) {
+		$stateProvider
+        .state('schedule', {
+            url: '/schedule',
+            templateUrl: 'schedule/schedule.html',
+            controller: 'ScheduleCtrl'
+        });
+
 		$routeProvider.otherwise({redirectTo: '/home'});
 		
 		$httpProvider.interceptors.push('APIInterceptor');
@@ -56,26 +64,17 @@ angular.module('myApp', [
 	})
 	
 	.controller('MainCtrl', ['$rootScope', '$scope', '$http', 'UserService', function ($rootScope, $scope, $http, UserService) {
-		console.log("registered the loginCtrl");
+		console.log("registered the MainCtrl");
 		
 		var main = this;
 		
 		console.log("currentUser=" + JSON.stringify(UserService.getCurrentUser()));
 
 		function logout() {
-				main.currentUser = UserService.setCurrentUser(null);
+			console.log('Logging out ' + JSON.stringify(main.currentUser));
+			main.currentUser = null;
+			UserService.setCurrentUser(null);
 		}
-
-		$rootScope.$on('authorized', function () {
-				console.log("broadcast - authorized");
-				main.currentUser = UserService.getCurrentUser();
-				console.log('currentUser =' + main.currentUser);
-		});
-
-		$rootScope.$on('unauthorized', function () {
-				console.log("broadcast - unauthorized");
-				main.currentUser = UserService.setCurrentUser(null);
-		});
 
 		main.logout = logout;
 		main.currentUser = UserService.getCurrentUser();
@@ -83,8 +82,7 @@ angular.module('myApp', [
 		$scope.main = main;
 			
 		$scope.login = function (user) {
-			console.log("username=" + user.username);
-			console.log("password=" + user.password);
+			console.log("user=" + JSON.stringify(user));
 			
 			$http({
 				method: "POST",
@@ -94,13 +92,11 @@ angular.module('myApp', [
 			}).then(function (response) {
 				console.log("response.data=" + JSON.stringify(response.data));
 				if (response.data) {
-					user = {};
 					user.auth_token = response.data.auth_token;
 					UserService.setCurrentUser(user);
-					$rootScope.$broadcast('authorized');
+					main.currentUser = user;
 				} else {
 					UserService.setCurrentUser(null);
-					$rootScope.$broadcast('unauthorized');
 				}
 			});
 			
