@@ -15,7 +15,7 @@
 
 <div class="jumbotron">
 	<div class="row">
-		<div class="col-xs-12" ng-repeat="message in messages">
+		<div class="col-xs-12" ng-repeat="message in messages | orderBy: 'date':true | limitTo: 20">
 			<p class="text-center">{{message.content}}</p>
 		</div>
 	</div>
