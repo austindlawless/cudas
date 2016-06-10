@@ -20,7 +20,7 @@ angular.module('myApp.home', ['ngRoute'])
 		}
 
 		updateMessages();
-		
+
 		$scope.open = function () {
 			$log.debug("Entered modal open function");
 
@@ -37,8 +37,6 @@ angular.module('myApp.home', ['ngRoute'])
 				$log.info('Modal dismissed at: ' + new Date());
 			});
 		};
-
-		$log.debug('$scope.post=' + $scope.post);
 	}])
 
 	.controller('ModalInstanceCtrl', ['$scope', '$uibModalInstance', '$log', '$http', function ($scope, $uibModalInstance, $log, $http) {
@@ -48,7 +46,7 @@ angular.module('myApp.home', ['ngRoute'])
 			
 			$http({
 				method: "POST",
-				url: 'https://eg5f5pcd8i.execute-api.us-east-1.amazonaws.com/prod/postMessage',
+				url: 'https://eg5f5pcd8i.execute-api.us-east-1.amazonaws.com/prod/cudas_postMessage',
 				data: {"message": message},
 				headers: {}
 			}).then(function (response) {
