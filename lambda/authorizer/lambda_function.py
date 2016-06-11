@@ -3,7 +3,7 @@ from __future__ import print_function
 import re
 import jwt
 import boto3
-import json
+# import json
 
 print('Loading function')
 
@@ -15,18 +15,20 @@ def lambda_handler(event, context):
 
     encoded = event['authorizationToken']
 
-    payload = jwt.decode(encoded, verify=False)
-    print('payload: ' + json.dumps(payload))
+    try :
+        payload = jwt.decode(encoded, verify=False)
+    except jwt.InvalidTokenError :
+        raise Exception('Unauthorized')
 
     username = payload["username"]
     print('username: ' + username)
 
     dynamo = boto3.resource('dynamodb').Table('auth_user')
     response = dynamo.get_item(Key={'username':username})
-    print('response: ' + json.dumps(response))
+    # print('response: ' + json.dumps(response))
 
     secret = response["Item"]["secret"]
-    print('secret: ' + secret)
+    # print('secret: ' + secret)
 
     try :
         payload = jwt.decode(encoded, secret, algorithms=['HS256'])
