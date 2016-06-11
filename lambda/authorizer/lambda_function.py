@@ -1,16 +1,37 @@
 from __future__ import print_function
 
 import re
-import time
-import pprint
+import jwt
+import boto3
 import json
 
+print('Loading function')
 
 def lambda_handler(event, context):
     print('Client token: ' + event['authorizationToken'])
     print('Method ARN: ' + event['methodArn'])
     '''validate the incoming token'''
     '''and produce the principal user identifier associated with the token'''
+
+    encoded = event['authorizationToken']
+
+    payload = jwt.decode(encoded, verify=False)
+    print('payload: ' + json.dumps(payload))
+
+    username = payload["username"]
+    print('username: ' + username)
+
+    dynamo = boto3.resource('dynamodb').Table('auth_user')
+    response = dynamo.get_item(Key={'username':username})
+    print('response: ' + json.dumps(response))
+
+    secret = response["Item"]["secret"]
+    print('secret: ' + secret)
+
+    try :
+        payload = jwt.decode(encoded, secret, algorithms=['HS256'])
+    except jwt.InvalidTokenError :
+        raise Exception('Unauthorized')
 
     '''this could be accomplished in a number of ways:'''
     '''1. Call out to OAuth provider'''
@@ -42,8 +63,8 @@ def lambda_handler(event, context):
     policy.restApiId = apiGatewayArnTmp[0]
     policy.region = tmp[3]
     policy.stage = apiGatewayArnTmp[1]
-    policy.denyAllMethods()
-    '''policy.allowMethod(HttpVerb.GET, '/pets/*')'''
+    '''policy.denyAllMethods()'''
+    policy.allowMethod(apiGatewayArnTmp[2], '/' + apiGatewayArnTmp[3])
 
     '''finally, build the policy and exit the function using return'''
     return policy.build()
@@ -65,7 +86,7 @@ class AuthPolicy(object):
     '''The principal used for the policy, this should be a unique identifier for the end user.'''
     version = '2012-10-17'
     '''The policy version used for the evaluation. This should always be '2012-10-17' '''
-    pathRegex = '^[/.a-zA-Z0-9-\*]+$'
+    pathRegex = '^[/.a-zA-Z0-9-\*_]+$'
     '''The regular expression used to validate resource paths for the policy'''
 
     '''these are the internal lists of allowed and denied methods. These are lists
