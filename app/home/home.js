@@ -10,7 +10,6 @@ angular.module('myApp.home', ['ngRoute'])
 	}])
 
 	.controller('HomeCtrl', ['$scope', '$http', '$log', '$uibModal', '$rootScope', function ($scope, $http, $log, $uibModal, $rootScope) {
-		$log.debug('registered HomeCtrl');
 
 		function updateMessages() {
 			$log.debug('updating messages');

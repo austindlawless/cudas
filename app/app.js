@@ -65,8 +65,6 @@ angular.module('myApp', [
 	.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$log', 'UserService', function ($rootScope, $scope, $http, $log, UserService) {		
 		var main = this;
 		
-		$log.debug("currentUser=" + JSON.stringify(UserService.getCurrentUser()));
-
 		function logout() {
 			$log.debug('Logging out ' + JSON.stringify(main.currentUser));
 			main.currentUser = null;
