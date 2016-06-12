@@ -1,4 +1,22 @@
+<div>
+    <script type="text/ng-template" id="messageModalContent">
+        <form class="form" ng-submit="post(message)" accept-charset="UTF-8">
+			<label class="sr-only" for="message">Message</label>
+			<input type="message" class="form-control" id="message" placeholder="What would you like to post?" ng-model="message.content" required>
+		</form>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="post(message)">Post</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <button type="button" class="btn btn-primary pull-right" ng-click="open()">Post</button>
+</div>
+
 <div class="jumbotron">
-	<h1>Failure in the form of second place.</h1>
-	<p>The 'Cudas had a chance at glory and a fourth consecutive championship, but it slipped through their fingers. Generations out played the 'Cudas in the defacto championship game. Now the mystique is gone, and the league sees them as beatable.</p>
+	<div class="row">
+		<div class="col-xs-12" ng-repeat="message in messages | orderBy: 'date':true | limitTo: 20">
+			<p class="text-center">{{message.content}}</p>
+		</div>
+	</div>
 </div>
