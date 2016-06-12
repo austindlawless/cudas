@@ -3,6 +3,7 @@ from __future__ import print_function
 import boto3
 import json
 import jwt
+from passlib.apps import custom_app_context as pwd_context
 
 print('Loading function')
 
@@ -21,7 +22,8 @@ def lambda_handler(event, context):
 		if 'Item' in response.keys() :
 			user = response['Item']
 			print('user=' + json.dumps(user))
-			if (password == user['password']) :
+			# if (password == user['password']) :
+			if (pwd_context.verify(password, user['password'])) :
 				return getToken(user)
 	return "invalid credintials"
 
