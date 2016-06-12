@@ -6,6 +6,8 @@ angular.module('myApp', [
 	'angular-storage',
 	'ui.router',
 	'ui.bootstrap',
+	'angulartics',
+	'angulartics.google.analytics',
 	'myApp.home',
 	'myApp.roster',
 	'myApp.schedule'
