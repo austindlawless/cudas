@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 import boto3
-import json
 import uuid
 import datetime
 from passlib.apps import custom_app_context as pwd_context
@@ -9,7 +8,6 @@ from passlib.apps import custom_app_context as pwd_context
 print('Loading function')
 
 def lambda_handler(event, context) :
-	print("Received event: " + json.dumps(event, indent=2))
 	if (event["user"]) :
 		user = event["user"]
 		if (user["username"] and user["password"] and user["name"]) :
