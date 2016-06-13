@@ -10,7 +10,8 @@ angular.module('myApp', [
 	'angulartics.google.analytics',
 	'myApp.home',
 	'myApp.roster',
-	'myApp.schedule'
+	'myApp.schedule',
+	'myApp.signup'
 ])
 	
 	.config(['$stateProvider','$routeProvider', '$httpProvider', function ($stateProvider, $routeProvider, $httpProvider) {
