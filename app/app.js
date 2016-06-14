@@ -16,11 +16,11 @@ angular.module('myApp', [
 	
 	.config(['$stateProvider','$routeProvider', '$httpProvider', function ($stateProvider, $routeProvider, $httpProvider) {
 		$stateProvider
-		.state('schedule', {
-			url: '/schedule',
-			templateUrl: 'schedule/schedule.html',
-			controller: 'ScheduleCtrl'
-		});
+			.state('home', {
+				url: '/home',
+				templateUrl: 'home/home.html',
+				controller: 'HomeCtrl'
+			});
 
 		$routeProvider.otherwise({redirectTo: '/home'});
 		
@@ -67,6 +67,14 @@ angular.module('myApp', [
 	
 	.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$log', 'UserService', function ($rootScope, $scope, $http, $log, UserService) {		
 		var main = this;
+
+		$rootScope.$on('authorized', function() {
+			main.currentUser = UserService.getCurrentUser();
+		});
+
+		$rootScope.$on('unauthorized', function() {
+			main.currentUser = UserService.setCurrentUser(null);
+		});
 		
 		function logout() {
 			$log.debug('Logging out ' + JSON.stringify(main.currentUser));

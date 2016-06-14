@@ -219,3 +219,9 @@ img.bg {
 .loss {
 	color: palevioletred;
 }
+
+/* SIGNUP CSS
+--------------------------------------------------- */
+.signup-btn {
+  width: 100px;
+}

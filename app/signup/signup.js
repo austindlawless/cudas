@@ -9,19 +9,42 @@ angular.module('myApp.signup', ['ngRoute'])
 		});
 	}])
 
-	.controller('SignupCtrl', ['$scope', '$http', '$log', '$rootScope', function ($scope, $http, $log, $uibModal, $rootScope) {
+	.controller('SignupCtrl', ['$rootScope', '$scope', '$http', '$log', 'UserService', '$window', '$state', function ($rootScope, $scope, $http, $log, UserService, $window, $state) {
 		$log.debug('Registering SignupCtrl');
 
 		$scope.signup = function (user) {
-			$log.debug("Signing up user=" + JSON.stringify(user));
-			
+			$scope.loading = true;
 			$http({
 				method: "POST",
 				url: 'https://eg5f5pcd8i.execute-api.us-east-1.amazonaws.com/prod/cudas-signup',
 				data: {"user": user}
-			}).then(function (response) {
-				$log.debug("response=" + JSON.stringify(response));
+			}).then(function success(response) {
+				login(user);
+				$state.go('home');
+				$scope.loading = false;
+			}, function error(response) {
+				$log.error(JSON.stringify(response));
+				$scope.loading = false;
+				$window.alert("There was an error logging in.");
 			});
+		};
+
+		var login = function (user) {			
+			$http({
+				method: "POST",
+				url: 'https://eg5f5pcd8i.execute-api.us-east-1.amazonaws.com/prod/getAuthToken',
+				data: {"username": user.username, "password": user.password}
+			}).then(function (response) {
+				if (response.data) {
+					user.auth_token = response.data.auth_token;
+					UserService.setCurrentUser(user);
+					$rootScope.$broadcast('authorized');
+				} else {
+					UserService.setCurrentUser(null);
+					$rootScope.$broadcast('unauthorized');
+				}
+			});
+			
 		};
 
 	}]);
