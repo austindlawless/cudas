@@ -9,7 +9,7 @@ angular.module('myApp.home', ['ngRoute'])
 		});
 	}])
 
-	.controller('HomeCtrl', ['$scope', '$http', '$log', '$uibModal', '$rootScope', function ($scope, $http, $log, $uibModal, $rootScope) {
+	.controller('HomeCtrl', ['$scope', '$http', '$log', '$uibModal', '$rootScope', 'UserService', function ($scope, $http, $log, $uibModal, $rootScope, UserService) {
 
 		function updateMessages() {
 			$log.debug('updating messages');
@@ -17,6 +17,8 @@ angular.module('myApp.home', ['ngRoute'])
 				$scope.messages = response.data.Items;
 			});
 		}
+
+		$scope.currentUser = UserService.getCurrentUser();
 
 		updateMessages();
 

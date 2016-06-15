@@ -3,7 +3,7 @@ from __future__ import print_function
 import boto3
 import json
 import uuid
-import datetime
+import time
 import jwt
 
 print('Loading function')
@@ -23,7 +23,7 @@ def lambda_handler(event, context):
 
     if (message["content"]):
         id = str(uuid.uuid4())
-        date = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+        date = int(time.time())
         item = {'id': id, 'content': message["content"], 'date': date, 'username': username}
         messageTable = boto3.resource('dynamodb').Table('cudas_message')
         return messageTable.put_item(Item=item)

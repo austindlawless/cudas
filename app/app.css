@@ -183,7 +183,7 @@ img.bg {
 }
 
 
-/* HOME CSS
+/* MESSAGES CSS
 -------------------------------------------------- */	
 
 .jumbotron {
@@ -191,7 +191,28 @@ img.bg {
 	margin-bottom: 200px;
 	background-color: transparent;
 	color: white;
-	text-align: center;
+}
+
+.panel {
+  background-color: transparent;
+  border-color: #888;
+
+}
+
+.panel-heading {
+  border-color: #888;
+  border-bottom: 0;
+  padding: 0;
+}
+
+.panel-body {
+  text-align: center;
+  font-size: 1.6em;
+}
+
+.panel-footer {
+  background-color: transparent;
+  border-color: #888;
 }
 
 /* ROSTER CSS

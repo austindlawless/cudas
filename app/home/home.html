@@ -10,13 +10,18 @@
         </div>
     </script>
 
-    <button type="button" class="btn btn-primary pull-right" ng-click="open()">Post</button>
+    <button type="button" class="btn btn-primary pull-right" ng-show="currentUser" ng-click="open()">Post</button>
 </div>
 
 <div class="jumbotron">
 	<div class="row">
-		<div class="col-xs-12" ng-repeat="message in messages | orderBy: 'date':true | limitTo: 20">
-			<p class="text-center">{{message.content}}</p>
+		<div class="panel" ng-repeat="message in messages | orderBy: '-date' | limitTo: 20">
+			<div class="panel-heading">{{message.headline}}</div>
+			<div class="panel-body">{{message.content}}</div>
+			<div class="panel-footer text-right">
+				posted by {{message.username}} <time title="{{ message.date | amFromUnix | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}" am-time-ago="message.date | amFromUnix"></time>
+			</div>
 		</div>
+		<br/>
 	</div>
 </div>

@@ -8,6 +8,7 @@ angular.module('myApp', [
 	'ui.bootstrap',
 	'angulartics',
 	'angulartics.google.analytics',
+	'angularMoment',
 	'myApp.home',
 	'myApp.roster',
 	'myApp.schedule',
