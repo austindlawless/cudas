@@ -229,6 +229,13 @@ img.bg {
 	height: 180px;
 }
 
+/* SCHEDULE CSS
+--------------------------------------------------- */
+
+.no-ump {
+	color: gray;
+}
+
 .win {
 	color: palegreen;
 }
